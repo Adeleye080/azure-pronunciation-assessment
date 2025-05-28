@@ -41,6 +41,11 @@ def index():
     return render_template("index.html")
 
 
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("404.html")
+
+
 @app.route("/assess", methods=["POST"])
 def assess():
     if "audio_file" not in request.files:
