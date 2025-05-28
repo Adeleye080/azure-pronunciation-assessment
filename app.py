@@ -13,14 +13,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import io
 import base64
-import numpy as np  # For numerical operations with phonemes if needed
+import numpy as np
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = (
-    "your_secret_key_here"  # IMPORTANT: Change this in production
-)
-app.config["UPLOAD_FOLDER"] = "uploads"
-app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "Your-secret-key")
+app.config["UPLOAD_FOLDER"] = os.getenv("UPLOAD_FOLDER", "uploads")
+app.config["MAX_CONTENT_LENGTH"] = (
+    int(os.getenv("MAX_CONTENT_LENGTH", 16)) * 1024 * 1024
+)  # default 16 MB limit
 
 # Ensure the upload folder exists
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
@@ -310,23 +310,13 @@ def process_azure_results(azure_raw_result):
     for word in words:
         error_type = word["PronunciationAssessment"].get("ErrorType", "None")
         if error_type != "None":
-            # Azure categorizes errors, but if 'None' is there, it's not an error.
-            # We map specific error types here for simplicity.
-            # 'Mispronunciation' typically covers accuracy issues.
-            # 'Omission' and 'Insertion' are higher-level issues.
-            # For simplicity, we'll count any non-None as a "Mispronunciation"
-            # as per Azure's default grading. If you need fine-grained,
-            # you'd need to parse the JSON more deeply for specific types.
+
             if error_type == "Mispronunciation":
                 error_types["Mispronunciation"] += 1
             elif error_type == "Omission":
                 error_types["Omission"] += 1
             elif error_type == "Insertion":
                 error_types["Insertion"] += 1
-            # Note: Azure's response for `ErrorType` can be more nuanced.
-            # If `enableMiscue` is True, you might get 'Omission' or 'Insertion' at the word level.
-            # If just accuracy is off, it might be 'Mispronunciation' or 'None' with low score.
-            # For this example, we directly use the `ErrorType` provided.
 
     error_labels = list(error_types.keys())
     error_values = list(error_types.values())
@@ -334,11 +324,6 @@ def process_azure_results(azure_raw_result):
         error_labels, error_values, "Error Distribution"
     )
 
-    # Phoneme Accuracy Heatmap (simplified example, can be much more complex)
-    # This requires extracting phoneme-level data and creating a meaningful heatmap.
-    # For simplicity, we'll show a bar chart of top/bottom phonemes, or a generic representation.
-    # A true heatmap would require a 2D array of phonemes vs. features/scores.
-    # Let's get phoneme accuracy scores for all unique phonemes that appeared
     phoneme_scores = {}
     for word in words:
         for syllable in word.get(
