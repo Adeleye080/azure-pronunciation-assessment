@@ -1,0 +1,412 @@
+{
+  "Id": "4963f288f52b44108b9131f49692fe47",
+  "RecognitionStatus": "Success",
+  "Offset": 8200000,
+  "Duration": 37600000,
+  "Channel": 0,
+  "DisplayText": "The quick brown fox jumps over the lazy dog.",
+  "SNR": 14.563323,
+  "NBest": [
+    {
+      "Confidence": 0.9753507,
+      "Lexical": "the quick brown fox jumps over the lazy dog",
+      "ITN": "the quick brown fox jumps over the lazy dog",
+      "MaskedITN": "the quick brown fox jumps over the lazy dog",
+      "Display": "The quick brown fox jumps over the lazy dog.",
+      "PronunciationAssessment": {
+        "AccuracyScore": 98.0,
+        "FluencyScore": 98.0,
+        "CompletenessScore": 100.0,
+        "PronScore": 98.4
+      },
+      "Words": [
+        {
+          "Word": "the",
+          "Offset": 8200000,
+          "Duration": 2400000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 94.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "dhiy",
+              "Grapheme": "the",
+              "PronunciationAssessment": { "AccuracyScore": 81.0 },
+              "Offset": 8200000,
+              "Duration": 2400000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "dh",
+              "PronunciationAssessment": { "AccuracyScore": 81.0 },
+              "Offset": 8200000,
+              "Duration": 1800000
+            },
+            {
+              "Phoneme": "iy",
+              "PronunciationAssessment": { "AccuracyScore": 80.0 },
+              "Offset": 10100000,
+              "Duration": 500000
+            }
+          ]
+        },
+        {
+          "Word": "quick",
+          "Offset": 10700000,
+          "Duration": 4100000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 100.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "kwihk",
+              "Grapheme": "quick",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 10700000,
+              "Duration": 4100000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "k",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 10700000,
+              "Duration": 1100000
+            },
+            {
+              "Phoneme": "w",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 11900000,
+              "Duration": 600000
+            },
+            {
+              "Phoneme": "ih",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 12600000,
+              "Duration": 600000
+            },
+            {
+              "Phoneme": "k",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 13300000,
+              "Duration": 1500000
+            }
+          ]
+        },
+        {
+          "Word": "brown",
+          "Offset": 15100000,
+          "Duration": 4900000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 100.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "brawn",
+              "Grapheme": "brown",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 15100000,
+              "Duration": 4900000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "b",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 15100000,
+              "Duration": 1100000
+            },
+            {
+              "Phoneme": "r",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 16300000,
+              "Duration": 1000000
+            },
+            {
+              "Phoneme": "aw",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 17400000,
+              "Duration": 600000
+            },
+            {
+              "Phoneme": "n",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 18100000,
+              "Duration": 1900000
+            }
+          ]
+        },
+        {
+          "Word": "fox",
+          "Offset": 20100000,
+          "Duration": 6100000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 97.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "faaks",
+              "Grapheme": "fox",
+              "PronunciationAssessment": { "AccuracyScore": 95.0 },
+              "Offset": 20100000,
+              "Duration": 6100000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "f",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 20100000,
+              "Duration": 1500000
+            },
+            {
+              "Phoneme": "aa",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 21700000,
+              "Duration": 1800000
+            },
+            {
+              "Phoneme": "k",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 23600000,
+              "Duration": 1000000
+            },
+            {
+              "Phoneme": "s",
+              "PronunciationAssessment": { "AccuracyScore": 81.0 },
+              "Offset": 24700000,
+              "Duration": 1500000
+            }
+          ]
+        },
+        {
+          "Word": "jumps",
+          "Offset": 26500000,
+          "Duration": 5100000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 100.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "jhahmps",
+              "Grapheme": "jumps",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 26500000,
+              "Duration": 5100000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "jh",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 26500000,
+              "Duration": 1600000
+            },
+            {
+              "Phoneme": "ah",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 28200000,
+              "Duration": 1000000
+            },
+            {
+              "Phoneme": "m",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 29300000,
+              "Duration": 500000
+            },
+            {
+              "Phoneme": "p",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 29900000,
+              "Duration": 600000
+            },
+            {
+              "Phoneme": "s",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 30600000,
+              "Duration": 1000000
+            }
+          ]
+        },
+        {
+          "Word": "over",
+          "Offset": 31900000,
+          "Duration": 3400000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 97.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "ow",
+              "Grapheme": "o",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 31900000,
+              "Duration": 1300000
+            },
+            {
+              "Syllable": "vaxr",
+              "Grapheme": "ver",
+              "PronunciationAssessment": { "AccuracyScore": 94.0 },
+              "Offset": 33300000,
+              "Duration": 2000000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "ow",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 31900000,
+              "Duration": 1300000
+            },
+            {
+              "Phoneme": "v",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 33300000,
+              "Duration": 700000
+            },
+            {
+              "Phoneme": "ax",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 34100000,
+              "Duration": 700000
+            },
+            {
+              "Phoneme": "r",
+              "PronunciationAssessment": { "AccuracyScore": 75.0 },
+              "Offset": 34900000,
+              "Duration": 400000
+            }
+          ]
+        },
+        {
+          "Word": "the",
+          "Offset": 35400000,
+          "Duration": 1000000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 100.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "dhiy",
+              "Grapheme": "the",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 35400000,
+              "Duration": 1000000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "dh",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 35400000,
+              "Duration": 400000
+            },
+            {
+              "Phoneme": "iy",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 35900000,
+              "Duration": 500000
+            }
+          ]
+        },
+        {
+          "Word": "lazy",
+          "Offset": 36500000,
+          "Duration": 3700000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 100.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "ley",
+              "Grapheme": "la",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 36500000,
+              "Duration": 1900000
+            },
+            {
+              "Syllable": "ziy",
+              "Grapheme": "zy",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 38500000,
+              "Duration": 1700000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "l",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 36500000,
+              "Duration": 900000
+            },
+            {
+              "Phoneme": "ey",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 37500000,
+              "Duration": 900000
+            },
+            {
+              "Phoneme": "z",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 38500000,
+              "Duration": 1100000
+            },
+            {
+              "Phoneme": "iy",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 39700000,
+              "Duration": 500000
+            }
+          ]
+        },
+        {
+          "Word": "dog",
+          "Offset": 40300000,
+          "Duration": 5500000,
+          "PronunciationAssessment": {
+            "AccuracyScore": 97.0,
+            "ErrorType": "None"
+          },
+          "Syllables": [
+            {
+              "Syllable": "daag",
+              "Grapheme": "dog",
+              "PronunciationAssessment": { "AccuracyScore": 85.0 },
+              "Offset": 40300000,
+              "Duration": 5500000
+            }
+          ],
+          "Phonemes": [
+            {
+              "Phoneme": "d",
+              "PronunciationAssessment": { "AccuracyScore": 100.0 },
+              "Offset": 40300000,
+              "Duration": 1100000
+            },
+            {
+              "Phoneme": "aa",
+              "PronunciationAssessment": { "AccuracyScore": 80.0 },
+              "Offset": 41500000,
+              "Duration": 1500000
+            },
+            {
+              "Phoneme": "g",
+              "PronunciationAssessment": { "AccuracyScore": 82.0 },
+              "Offset": 43100000,
+              "Duration": 2700000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

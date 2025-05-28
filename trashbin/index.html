@@ -1,0 +1,471 @@
+<!-- templates/index.html -->
+{% extends "base.html" %} {% block content %}
+<div class="hero-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h1 class="display-4 mb-4">
+          <i class="fas fa-microphone-alt me-3"></i>
+          Pronunciation Assessment Tool
+        </h1>
+        <p class="lead">
+          Upload your audio or video recording and get detailed pronunciation
+          analysis with accuracy scores, statistics, and visualizations.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">
+            <i class="fas fa-upload me-2"></i>
+            Upload Recording for Assessment
+          </h3>
+        </div>
+        <div class="card-body">
+          <form id="assessmentForm" enctype="multipart/form-data">
+            <div class="mb-4">
+              <label for="reference_text" class="form-label">
+                <strong>Reference Text</strong>
+                <small class="text-muted"
+                  >(The text that should be spoken)</small
+                >
+              </label>
+              <textarea
+                class="form-control"
+                id="reference_text"
+                name="reference_text"
+                rows="3"
+                placeholder="Enter the text that was spoken in the recording..."
+                required
+              >
+The quick brown fox jumps over the lazy dog.</textarea
+              >
+            </div>
+
+            <div class="mb-4">
+              <label for="language" class="form-label">
+                <strong>Language</strong>
+              </label>
+              <select class="form-select" id="language" name="language">
+                <option value="en-US">English (US)</option>
+                <option value="en-GB">English (UK)</option>
+                <option value="fr-FR">French (France)</option>
+                <option value="es-ES">Spanish (Spain)</option>
+                <option value="de-DE">German (Germany)</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">
+                <strong>Audio or Video File</strong>
+              </label>
+              <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                <h5>Click to select or drag & drop your file</h5>
+                <p class="text-muted">
+                  <strong>Audio formats:</strong> MP3, WAV, AAC, OGG, M4A<br />
+                  <strong>Video formats:</strong> MP4, MOV, AVI, MKV, WEBM<br />
+                  Maximum file size: 16MB
+                </p>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="audio_file"
+                  name="audio_file"
+                  accept=".mp3,.wav,.aac,.ogg,.m4a,.mp4,.mov,.avi,.mkv,.webm,audio/*,video/*"
+                  style="display: none"
+                  required
+                />
+              </div>
+              <div
+                id="fileInfo"
+                class="mt-2 text-muted"
+                style="display: none"
+              ></div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-chart-line me-2"></i>
+                Analyze Pronunciation
+              </button>
+            </div>
+          </form>
+
+          <!-- Loading Spinner -->
+          <div class="loading-spinner text-center py-5" style="display: none">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Analyzing your pronunciation...</p>
+            <small class="text-muted"
+              >This may take a moment for video files as we extract the
+              audio...</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div id="resultsContainer" style="display: none">
+        <!-- Results will be loaded here -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  $(document).ready(function () {
+    // Enhanced file upload handling with drag and drop
+    const uploadArea = $("#uploadArea");
+    const fileInput = $("#audio_file");
+
+    // Click to upload
+    uploadArea.click(function () {
+      fileInput.click();
+    });
+
+    // Drag and drop functionality
+    uploadArea.on("dragover", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).addClass("drag-over");
+    });
+
+    uploadArea.on("dragleave", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).removeClass("drag-over");
+    });
+
+    uploadArea.on("drop", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).removeClass("drag-over");
+
+      const files = e.originalEvent.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput[0].files = files;
+        handleFileSelection(files[0]);
+      }
+    });
+
+    // File selection handler
+    fileInput.change(function () {
+      const file = this.files[0];
+      if (file) {
+        handleFileSelection(file);
+      }
+    });
+
+    function handleFileSelection(file) {
+      // Validate file type
+      const validAudioTypes = [
+        "audio/mpeg",
+        "audio/wav",
+        "audio/aac",
+        "audio/ogg",
+        "audio/mp4",
+      ];
+      const validVideoTypes = [
+        "video/mp4",
+        "video/quicktime",
+        "video/x-msvideo",
+        "video/x-matroska",
+        "video/webm",
+      ];
+      const allValidTypes = [...validAudioTypes, ...validVideoTypes];
+
+      if (
+        !allValidTypes.includes(file.type) &&
+        !file.name.match(/\.(mp3|wav|aac|ogg|m4a|mp4|mov|avi|mkv|webm)$/i)
+      ) {
+        alert("Please select a valid audio or video file.");
+        fileInput.val("");
+        $("#fileInfo").hide();
+        return;
+      }
+
+      // Validate file size (16MB limit)
+      const maxSize = 16 * 1024 * 1024; // 16MB in bytes
+      if (file.size > maxSize) {
+        alert(
+          "File size must be less than 16MB. Please choose a smaller file."
+        );
+        fileInput.val("");
+        $("#fileInfo").hide();
+        return;
+      }
+
+      // Determine file type and icon
+      const isVideo =
+        validVideoTypes.includes(file.type) ||
+        file.name.match(/\.(mp4|mov|avi|mkv|webm)$/i);
+      const icon = isVideo ? "fas fa-video" : "fas fa-file-audio";
+      const fileType = isVideo ? "Video" : "Audio";
+
+      // Display file info
+      $("#fileInfo").show().html(`
+        <div class="d-flex align-items-center">
+          <i class="${icon} text-success me-2"></i>
+          <div>
+            <strong>${
+              file.name
+            }</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)<br>
+            <small class="text-muted">${fileType} file ready for analysis</small>
+          </div>
+        </div>
+      `);
+    }
+
+    // Form submission
+    $("#assessmentForm").submit(function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const file = fileInput[0].files[0];
+
+      if (!file) {
+        alert("Please select an audio or video file.");
+        return;
+      }
+
+      // Show loading spinner
+      $(".loading-spinner").show();
+      $('button[type="submit"]').prop("disabled", true);
+
+      $.ajax({
+        url: "/assess",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        timeout: 120000, // 2 minutes timeout for larger files
+        success: function (data) {
+          displayResults(data);
+        },
+        error: function (xhr) {
+          const error = xhr.responseJSON || { error: "Unknown error occurred" };
+          let errorMessage = "Error: " + error.error;
+
+          if (xhr.status === 413) {
+            errorMessage =
+              "File too large. Please upload a file smaller than 16MB.";
+          } else if (xhr.status === 415) {
+            errorMessage =
+              "Unsupported file format. Please upload a valid audio or video file.";
+          }
+
+          alert(errorMessage);
+        },
+        complete: function () {
+          $(".loading-spinner").hide();
+          $('button[type="submit"]').prop("disabled", false);
+        },
+      });
+    });
+
+    function displayResults(data) {
+      const scores = data.overall_scores;
+      const stats = data.statistics;
+      const charts = data.charts;
+
+      const resultsHtml = `
+            <div class="card result-card mt-4">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Pronunciation Assessment Results
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <!-- Overall Scores -->
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            <h5>Overall Score</h5>
+                            <span class="badge ${getScoreClass(
+                              scores.pronunciation_score
+                            )} score-badge">
+                                ${scores.pronunciation_score.toFixed(1)}
+                            </span>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h5>Accuracy</h5>
+                            <span class="badge ${getScoreClass(
+                              scores.accuracy_score
+                            )} score-badge">
+                                ${scores.accuracy_score.toFixed(1)}
+                            </span>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h5>Fluency</h5>
+                            <span class="badge ${getScoreClass(
+                              scores.fluency_score
+                            )} score-badge">
+                                ${scores.fluency_score.toFixed(1)}
+                            </span>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <h5>Completeness</h5>
+                            <span class="badge ${getScoreClass(
+                              scores.completeness_score
+                            )} score-badge">
+                                ${scores.completeness_score.toFixed(1)}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5><i class="fas fa-clock me-2"></i>Speech Duration</h5>
+                                    <h3 class="text-primary">${stats.speech_duration.toFixed(
+                                      1
+                                    )}s</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5><i class="fas fa-tachometer-alt me-2"></i>Speaking Rate</h5>
+                                    <h3 class="text-info">${stats.speaking_rate.toFixed(
+                                      0
+                                    )} WPM</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recognized Text -->
+                    <div class="mb-4">
+                        <h5><i class="fas fa-quote-left me-2"></i>Recognized Text</h5>
+                        <div class="alert alert-info">
+                            "${data.recognized_text}"
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="chart-container">
+                                <h5>Overall Scores</h5>
+                                <img src="data:image/png;base64,${
+                                  charts.overall_scores
+                                }" class="img-fluid" alt="Overall Scores Chart">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="chart-container">
+                                <h5>Word-Level Accuracy</h5>
+                                <img src="data:image/png;base64,${
+                                  charts.word_accuracy
+                                }" class="img-fluid" alt="Word Accuracy Chart">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="chart-container">
+                                <h5>Speech Statistics</h5>
+                                <img src="data:image/png;base64,${
+                                  charts.statistics_dashboard
+                                }" class="img-fluid" alt="Statistics Dashboard">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <h5>Error Distribution</h5>
+                                <img src="data:image/png;base64,${
+                                  charts.error_distribution
+                                }" class="img-fluid" alt="Error Distribution">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="chart-container">
+                                <h5>Phoneme Accuracy</h5>
+                                <img src="data:image/png;base64,${
+                                  charts.phoneme_heatmap
+                                }" class="img-fluid" alt="Phoneme Heatmap">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      $("#resultsContainer").html(resultsHtml).show();
+
+      // Scroll to results
+      $("html, body").animate(
+        {
+          scrollTop: $("#resultsContainer").offset().top - 100,
+        },
+        1000
+      );
+    }
+
+    function getScoreClass(score) {
+      if (score >= 80) return "score-excellent";
+      if (score >= 60) return "score-good";
+      return "score-needs-improvement";
+    }
+  });
+</script>
+
+<style>
+  .upload-area {
+    border: 2px dashed #007bff;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+  }
+
+  .upload-area:hover {
+    border-color: #0056b3;
+    background-color: #e3f2fd;
+    transform: translateY(-2px);
+  }
+
+  .upload-area.drag-over {
+    border-color: #28a745;
+    background-color: #d4edda;
+  }
+
+  .score-badge {
+    font-size: 1.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .score-excellent {
+    background-color: #28a745 !important;
+  }
+
+  .score-good {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+  }
+
+  .score-needs-improvement {
+    background-color: #dc3545 !important;
+  }
+
+  .chart-container {
+    margin-bottom: 2rem;
+  }
+
+  .result-card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+</style>
+{% endblock %}

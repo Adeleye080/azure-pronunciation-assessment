@@ -1,0 +1,93 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}Azure Speech Pronunciation Assessment{% endblock %}
+    </title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 60px 0;
+      }
+      .upload-area {
+        border: 2px dashed #007bff;
+        border-radius: 10px;
+        padding: 40px;
+        text-align: center;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+      }
+      .upload-area:hover {
+        border-color: #0056b3;
+        background-color: #e9ecef;
+      }
+      .result-card {
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .score-badge {
+        font-size: 1.2em;
+        font-weight: bold;
+        padding: 8px 16px;
+      }
+      .score-excellent {
+        background-color: #28a745;
+      }
+      .score-good {
+        background-color: #ffc107;
+      }
+      .score-needs-improvement {
+        background-color: #dc3545;
+      }
+      .loading-spinner {
+        display: none;
+      }
+      .chart-container {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="fas fa-microphone-alt me-2"></i>
+          Pronunciation Assessment
+        </a>
+      </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+      <div class="container">
+        <p>
+          &copy; 2025 Azure Speech Pronunciation Assessment Tool - created by
+          Ajiboye P.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>
